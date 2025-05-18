@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTopupWalletRequest;
+use App\Http\Requests\StoreWithdrawWalletRequest;
 use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,40 @@ class DashboardController extends Controller
             $validated['user_id'] = $user->id;
 
             WalletTransaction::create($validated);
+        });
+
+        return redirect()->route('dashboard.wallet');
+    }
+
+    public function withdraw_wallet_store(StoreWithdrawWalletRequest $request)
+    {
+        $user = Auth::user();
+
+        // Pastikan saldo mencukupi
+        if ($user->wallet->balance < 100000) {
+            return redirect()->back()->withErrors([
+                'amount' => 'Balance Anda saat ini tidak cukup'
+            ]);
+        }
+
+        DB::transaction(function () use ($request, $user) {
+            $validated = $request->validated();
+
+            if ($request->hasFile('proof')) {
+                $proofPath = $request->file('proof')->store('proofs', 'public');
+                $validated['proof'] = $proofPath;
+            }
+
+            $validated['type']     = 'Withdraw';
+            $validated['amount']   = $user->wallet->balance;  // seluruh saldo akan ditarik
+            $validated['is_paid']  = false;
+            $validated['user_id']  = $user->id;
+
+            // Buat record transaksi penarikan
+            WalletTransaction::create($validated);
+
+            // Set saldo user menjadi nol
+            $user->wallet->update(['balance' => 0]);
         });
 
         return redirect()->route('dashboard.wallet');
