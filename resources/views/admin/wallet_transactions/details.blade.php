@@ -110,10 +110,11 @@
                 @if ($walletTransaction->type == 'Topup')
                     <hr class="my-5">
                     <h3 class="text-indigo-950 text-xl font-bold mb-5">Proof of Topup Payment</h3>
-                    <img src="#" alt="" class="rounded-2xl object-cover w-[300px] h-[200px] mb-3">
+                    <img src="{{ Storage::url($walletTransaction->proof) }}" alt=""
+                        class="rounded-2xl object-cover w-[300px] h-[200px] mb-3">
 
                     <hr class="my-5">
-                    <form action="#" method="POST">
+                    <form action="{{ route('admin.wallet_transactions.update', $walletTransaction) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <button type="submit" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
