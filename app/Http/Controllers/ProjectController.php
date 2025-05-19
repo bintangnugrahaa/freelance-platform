@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\Tool;
 use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,9 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        $user    = Auth::user();
+        $balance = $user->wallet->balance;
+
         if ($request->input('budget') > $balance) {
             return redirect()->back()->withErrors([
                 'budget' => 'Balance Anda tidak cukup'
@@ -59,11 +63,11 @@ class ProjectController extends Controller
         DB::transaction(function () use ($request, $user) {
             $user->wallet->decrement('balance', $request->input('budget'));
 
-            $projectWalletTransaction = WalletTransaction::create([
-                'type'     => 'Project Cost',
-                'amount'   => $request->input('budget'),
-                'is_paid'  => true,
-                'user_id'  => $user->id,
+            WalletTransaction::create([
+                'type'    => 'Project Cost',
+                'amount'  => $request->input('budget'),
+                'is_paid' => true,
+                'user_id' => $user->id,
             ]);
 
             $validated = $request->validated();
@@ -90,7 +94,21 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        if ($project->client_id !== auth()->id()) {
+            abort(403, 'You are not authorized');
+        }
+
+        return view('admin.projects.show', compact('project'));
+    }
+
+    public function tools(Project $project)
+    {
+        if ($project->client_id !== auth()->id()) {
+            abort(403, 'You are not authorized');
+        }
+
+        $tools = Tool::all();
+        return view('admin.projects.tools', compact('project', 'tools'));
     }
 
     /**
