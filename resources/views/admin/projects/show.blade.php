@@ -42,38 +42,40 @@
 
                 <h3 class="text-indigo-950 text-xl font-bold">Applicants</h3>
 
+                @forelse($project->applicants as $spplicant)
+                    <div class="flex flex-row justify-between items-center">
+                        <div class="flex flex-row items-center gap-x-3">
+                            <img src=" " alt="" class="rounded-full object-cover w-[70px] h-[70px]">
+                            <div class="flex flex-col">
+                                <h3 class="text-indigo-950 text-xl font-bold">{{ $spplicant->freelancer->name }}</h3>
+                                <p class="text-slate-500 text-sm">{{ $spplicant->freelancer->occupation }}</p>
+                            </div>
+                        </div>
 
-                <div class="flex flex-row justify-between items-center">
-                    <div class="flex flex-row items-center gap-x-3">
-                        <img src=" " alt="" class="rounded-full object-cover w-[70px] h-[70px]">
-                        <div class="flex flex-col">
-                            <h3 class="text-indigo-950 text-xl font-bold">saber jaya</h3>
-                            <p class="text-slate-500 text-sm">programmer</p>
+                        @if ($applicant->status == 'Hired')
+                            <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-green-500 text-white">
+                                HIRED
+                            </span>
+                        @elseif($applicant->status == 'Waiting')
+                            <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">
+                                WAITING FOR APPROVAL
+                            </span>
+                        @elseif($applicant->status == 'Rejected')
+                            <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-red-500 text-white">
+                                REJECTED
+                            </span>
+                        @endif
+
+                        <div class="flex flex-row items-center gap-x-3">
+                            <a href="{{ route('admin.project_applicants.show', $applicant) }}""
+                                class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                                Details
+                            </a>
                         </div>
                     </div>
-
-
-                    <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-green-500 text-white">
-                        HIRED
-                    </span>
-
-
-                    <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-orange-500 text-white">
-                        WAITING FOR APPROVAL
-                    </span>
-
-                    <span class="w-fit text-sm font-bold py-2 px-3 rounded-full bg-red-500 text-white">
-                        REJECTED
-                    </span>
-
-
-                    <div class="flex flex-row items-center gap-x-3">
-                        <a href="#" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
-                            Details
-                        </a>
-                    </div>
-                </div>
-
+                @empty
+                    <p>Belum ada data terbaru...</p>
+                @endforelse
             </div>
         </div>
     </div>
