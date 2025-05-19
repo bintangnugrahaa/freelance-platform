@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\StoreToolProjectRequest;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\ProjectTool;
 use App\Models\Tool;
 use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
@@ -109,6 +111,18 @@ class ProjectController extends Controller
 
         $tools = Tool::all();
         return view('admin.projects.tools', compact('project', 'tools'));
+    }
+
+    public function tools_store(StoreToolProjectRequest $request, Project $project)
+    {
+        DB::transaction(function () use ($request, $project) {
+            $validated = $request->validated();
+            $validated['project_id'] = $project->id;
+
+            ProjectTool::firstOrCreate($validated);
+        });
+
+        return redirect()->route('admin.projects.tools', $project->id);
     }
 
     /**
