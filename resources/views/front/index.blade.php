@@ -46,7 +46,7 @@
             <h2 class="font-bold text-xl">Featured Projects</h2>
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-5">
                 @forelse($projects as $project)
-                    <a href="details.html" class="card">
+                    <a href="{{ route('front.details', $project) }}" class="card">
                         <div
                             class="p-5 rounded-[20px] bg-white flex flex-col gap-5 hover:ring-2 hover:ring-[#6635F1] transition-all duration-300">
                             <div class="w-full h-[140px] rounded-[20px] overflow-hidden relative">
@@ -109,7 +109,7 @@
                     <div class="flex flex-col gap-5">
                         <div
                             class="card hover:ring-2 hover:ring-[#6635F1] transition-all duration-300 bg-white p-5 rounded-[20px] flex flex-col sm:flex-row sm:items-center gap-[18px] w-full">
-                            <a href="details.html"
+                            <a href="{{ route('front.details', $project) }}"
                                 class="w-full sm:w-[200px] h-[150px] flex shrink-0 rounded-[20px] overflow-hidden bg-[#D9D9D9]">
                                 <img src="{{ Storage::url($project->thumbnail) }}" class="w-full h-full object-cover"
                                     alt="thumbnail">
@@ -132,7 +132,7 @@
                                             HIRING</div>
                                     @endif
                                 @endif
-                                <a href="details.html"
+                                <a href="{{ route('front.details', $project) }}"
                                     class="font-semibold text-lg leading-[27px]">{{ $project->name }}</a>
                                 <p class="text-sm leading-7 line-clamp-2">{{ $project->about }}</p>
                                 <div class="flex flex-col sm:flex-row sm:items-center gap-3">
