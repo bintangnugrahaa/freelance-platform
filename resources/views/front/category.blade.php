@@ -1,4 +1,5 @@
 @extends('front.layouts.app')
+@section('title', $category->name)
 @section('content')
 
     <body class="font-poppins text-[#030303] bg-[#F6F5FA] pb-[100px] px-4 sm:px-0">
