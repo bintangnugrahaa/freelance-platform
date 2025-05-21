@@ -1,4 +1,5 @@
 <x-app-layout>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('assets/logos/logos.svg') }}">
     <x-slot name="header">
         <div class="flex flex-row justify-between items-center px-4 sm:px-6 lg:px-8">
             <h2 class="font-semibold text-2xl text-gray-900 leading-tight tracking-tight">

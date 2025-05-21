@@ -96,8 +96,12 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        if ($project->client_id !== auth()->id()) {
-            abort(403, 'You are not authorized');
+        $user = auth()->user();
+
+        if (! $user->hasRole('super_admin')) {
+            if ($project->client_id !== $user->id) {
+                abort(403, 'You are not authorized');
+            }
         }
 
         return view('admin.projects.show', compact('project'));
@@ -105,8 +109,12 @@ class ProjectController extends Controller
 
     public function tools(Project $project)
     {
-        if ($project->client_id !== auth()->id()) {
-            abort(403, 'You are not authorized');
+        $user = auth()->user();
+
+        if (! $user->hasRole('super_admin')) {
+            if ($project->client_id !== $user->id) {
+                abort(403, 'You are not authorized');
+            }
         }
 
         $tools = Tool::all();
