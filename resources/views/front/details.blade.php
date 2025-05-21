@@ -7,13 +7,13 @@
 
         <section id="breadcrumb" class="container max-w-[1130px] mx-auto mt-[30px]">
             <div class="flex gap-[30px] items-center">
-                <a href=""
+                <a href="{{ route('front.index') }}"
                     class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Browse</a>
                 <span>/</span>
-                <a href=""
+                <a href="#"
                     class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Projects</a>
                 <span>/</span>
-                <a href=""
+                <a href="#"
                     class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Details</a>
             </div>
         </section>
@@ -86,46 +86,19 @@
                 <div class="flex flex-col gap-[6px] w-full">
                     <h3 class="font-semibold">Tools Used</h3>
                     <div class="grid sm:grid-cols-4 gap-5">
-                        <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
-                            <div class="w-[38px] h-[38px] flex shrink-0">
-                                <img src="{{ asset('assets/logos/next.svg') }}" class="w-full h-full object-contain"
-                                    alt="icon">
+                        @forelse($project->tools as $tool)
+                            <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
+                                <div class="w-[38px] h-[38px] flex shrink-0">
+                                    <img src="{{ Storage::url($tool->icon) }}" class="w-full h-full object-contain"
+                                        alt="icon">
+                                </div>
+                                <div class="flex flex-col justify-center gap-[2px]">
+                                    <p class="font-bold">{{ $tool->name }}</p>
+                                </div>
                             </div>
-                            <div class="flex flex-col justify-center gap-[2px]">
-                                <p class="font-bold">NextJS</p>
-                                <p class="text-sm text-[#545768]">Front-end</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
-                            <div class="w-[38px] h-[38px] flex shrink-0">
-                                <img src="{{ asset('assets/logos/figma.svg') }}" class="w-full h-full object-contain"
-                                    alt="icon">
-                            </div>
-                            <div class="flex flex-col justify-center gap-[2px]">
-                                <p class="font-bold">Figma</p>
-                                <p class="text-sm text-[#545768]">Design</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
-                            <div class="w-[38px] h-[38px] flex shrink-0">
-                                <img src="{{ asset('assets/logos/tailwind.svg') }}" class="w-full h-full object-contain"
-                                    alt="icon">
-                            </div>
-                            <div class="flex flex-col justify-center gap-[2px]">
-                                <p class="font-bold">Tailwind</p>
-                                <p class="text-sm text-[#545768]">CSS</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
-                            <div class="w-[38px] h-[38px] flex shrink-0">
-                                <img src="{{ asset('assets/logos/laravel.svg') }}" class="w-full h-full object-contain"
-                                    alt="icon">
-                            </div>
-                            <div class="flex flex-col justify-center gap-[2px]">
-                                <p class="font-bold">Laravel</p>
-                                <p class="text-sm text-[#545768]">Back-end</p>
-                            </div>
-                        </div>
+                        @empty
+                            <p>Belum ada data terbaru...</p>
+                        @endforelse
                     </div>
                 </div>
                 <div class="w-full bg-[#0FB848] flex items-center gap-[10px] p-[10px_14px] rounded-xl">
@@ -151,12 +124,13 @@
                     <h3 class="font-semibold">About Client</h3>
                     <div class="flex items-center gap-3">
                         <div class="w-[50px] h-[50px] rounded-full overflow-hidden flex shrink-0">
-                            <img src="{{ asset('assets/photos/profile.png') }}" class="w-full h-full object-cover"
+                            <img src="{{ Storage::url($project->owner->avatar) }}" class="w-full h-full object-cover"
                                 alt="photo">
                         </div>
                         <div class="flex flex-col gap-[2px]">
-                            <p class="font-semibold">Armadilla Putri</p>
-                            <p class="text-sm leading-[21px] text-[#545768]">25,000 Total Projects</p>
+                            <p class="font-semibold">{{ $project->owner->name }}</p>
+                            <p class="text-sm leading-[21px] text-[#545768]">{{ $project->owner->projects->count() }} Total
+                                Projects</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-[6px]">
@@ -176,7 +150,7 @@
                             <div>
                                 <img src="{{ asset('assets/icons/Star-grey.svg') }}" alt="star">
                             </div>
-                            <p class="font-semibold text-sm">(24,499)</p>
+                            <p class="font-semibold text-sm">(4)</p>
                         </div>
                     </div>
                 </div>
@@ -189,142 +163,60 @@
         <section id="other" class="container max-w-[1130px] mx-auto flex flex-col gap-4 mt-[50px]">
             <h2 class="font-bold text-xl">Other Projects</h2>
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-5">
-                <a href="" class="card">
-                    <div
-                        class="p-5 rounded-[20px] bg-white flex flex-col gap-5 hover:ring-2 hover:ring-[#6635F1] transition-all duration-300">
-                        <div class="w-full h-[140px] rounded-[20px] overflow-hidden relative">
-                            <div
-                                class="font-bold text-xs leading-[18px] text-white bg-[#2E82FE] p-[2px_10px] rounded-full w-fit">
-                                HIRING</div>
-                            <img src="{{ asset('assets/thumbnails/thumbnail-1.png') }}"
-                                class="w-full h-full object-cover" alt="thumbnail">
-                        </div>
-                        <div class="flex flex-col gap-[10px]">
-                            <p class="title font-semibold text-lg min-h-[56px] line-clamp-2 hover:line-clamp-none">
-                                Education Commerce Website Development</p>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/dollar-circle.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Rp 3.000.000</p>
+                @forelse($projects as $project)
+                    <a href="{{ route('front.details', $project) }}" class="card">
+                        <div
+                            class="p-5 rounded-[20px] bg-white flex flex-col gap-5 hover:ring-2 hover:ring-[#6635F1] transition-all duration-300">
+                            <div class="w-full h-[140px] rounded-[20px] overflow-hidden relative">
+                                @if ($project->has_finished)
+                                    <div
+                                        class="font-bold text-xs leading-[18px] text-white bg-[#F3445C] p-[2px_10px] rounded-full w-fit absolute top-[10px] left-[10px]">
+                                        CLOSED
+                                    </div>
+                                @else
+                                    @if ($project->has_started)
+                                        <div
+                                            class="font-bold text-xs leading-[18px] text-white bg-[#2E82FE] p-[2px_10px] rounded-full w-fit absolute top-[10px] left-[10px]">
+                                            IN PROGRESS
+                                        </div>
+                                    @else
+                                        <div
+                                            class="font-bold text-xs leading-[18px] text-white bg-[#2E82FE] p-[2px_10px] rounded-full w-fit absolute top-[10px] left-[10px]">
+                                            HIRING
+                                        </div>
+                                    @endif
+                                @endif
+                                <img src="{{ Storage::url($project->thumbnail) }}" class="w-full h-full object-cover"
+                                    alt="thumbnail">
                             </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/verify.svg') }}" alt="icon">
+                            <div class="flex flex-col gap-[10px]">
+                                <p class="title font-semibold text-lg min-h-[56px] line-clamp-2 hover:line-clamp-none">
+                                    {{ $project->name }}</p>
+                                <div class="flex items-center gap-[6px]">
+                                    <div>
+                                        <img src="{{ asset('assets/icons/dollar-circle.svg') }}" alt="icon">
+                                    </div>
+                                    <p class="font-semibold text-sm">Rp {{ number_format($project->budget, 0, '.', '.') }}
+                                    </p>
                                 </div>
-                                <p class="font-semibold text-sm">Payment Verified</p>
-                            </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/crown.svg') }}" alt="icon">
+                                <div class="flex items-center gap-[6px]">
+                                    <div>
+                                        <img src="{{ asset('assets/icons/verify.svg') }}" alt="icon">
+                                    </div>
+                                    <p class="font-semibold text-sm">Payment Verified</p>
                                 </div>
-                                <p class="font-semibold text-sm">Beginner</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="card">
-                    <div
-                        class="p-5 rounded-[20px] bg-white flex flex-col gap-5 hover:ring-2 hover:ring-[#6635F1] transition-all duration-300">
-                        <div class="w-full h-[140px] rounded-[20px] overflow-hidden relative">
-                            <div
-                                class="font-bold text-xs leading-[18px] text-white bg-[#F3445C] p-[2px_10px] rounded-full w-fit">
-                                CLOSED</div>
-                            <img src="{{ asset('assets/thumbnails/thumbnail-2.png') }}"
-                                class="w-full h-full object-cover" alt="thumbnail">
-                        </div>
-                        <div class="flex flex-col gap-[10px]">
-                            <p class="title font-semibold text-lg min-h-[56px] line-clamp-2 hover:line-clamp-none">Product
-                                Market Fit Research</p>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/dollar-circle.svg') }}" alt="icon">
+                                <div class="flex items-center gap-[6px]">
+                                    <div>
+                                        <img src="{{ asset('assets/icons/crown.svg') }}" alt="icon">
+                                    </div>
+                                    <p class="font-semibold text-sm">{{ $project->skill_level }}</p>
                                 </div>
-                                <p class="font-semibold text-sm">Rp 3.000.000</p>
-                            </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/verify.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Payment Verified</p>
-                            </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/crown.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Intermediate</p>
                             </div>
                         </div>
-                    </div>
-                </a>
-                <a href="" class="card">
-                    <div
-                        class="p-5 rounded-[20px] bg-white flex flex-col gap-5 hover:ring-2 hover:ring-[#6635F1] transition-all duration-300">
-                        <div class="w-full h-[140px] rounded-[20px] overflow-hidden relative">
-                            <div
-                                class="font-bold text-xs leading-[18px] text-white bg-[#2E82FE] p-[2px_10px] rounded-full w-fit">
-                                HIRING</div>
-                            <img src="{{ asset('assets/thumbnails/thumbnail-3.png') }}"
-                                class="w-full h-full object-cover" alt="thumbnail">
-                        </div>
-                        <div class="flex flex-col gap-[10px]">
-                            <p class="title font-semibold text-lg min-h-[56px] line-clamp-2 hover:line-clamp-none">3D
-                                Blender Modelings</p>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/dollar-circle.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Rp 80.000.000</p>
-                            </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/verify.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Payment Verified</p>
-                            </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/crown.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Beginner</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="card">
-                    <div
-                        class="p-5 rounded-[20px] bg-white flex flex-col gap-5 hover:ring-2 hover:ring-[#6635F1] transition-all duration-300">
-                        <div class="w-full h-[140px] rounded-[20px] overflow-hidden relative">
-                            <div
-                                class="font-bold text-xs leading-[18px] text-white bg-[#2E82FE] p-[2px_10px] rounded-full w-fit">
-                                HIRING</div>
-                            <img src="{{ asset('assets/thumbnails/thumbnail-4.png') }}"
-                                class="w-full h-full object-cover" alt="thumbnail">
-                        </div>
-                        <div class="flex flex-col gap-[10px]">
-                            <p class="title font-semibold text-lg min-h-[56px] line-clamp-2 hover:line-clamp-none">SaaS AI
-                                Integrated</p>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/dollar-circle.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Rp 3.000.000</p>
-                            </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/verify.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Payment Verified</p>
-                            </div>
-                            <div class="flex items-center gap-[6px]">
-                                <div>
-                                    <img src="{{ asset('assets/icons/crown.svg') }}" alt="icon">
-                                </div>
-                                <p class="font-semibold text-sm">Expert</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                @empty
+                    <p>Belum ada data terbaru...</p>
+                @endforelse
             </div>
         </section>
     </body>

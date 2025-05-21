@@ -12,10 +12,10 @@
                     <a href="{{ route('front.index') }}"
                         class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Browse</a>
                     <span>/</span>
-                    <a href=""
+                    <a href="#"
                         class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Category</a>
                     <span>/</span>
-                    <a href=""
+                    <a href="#"
                         class="last-of-type:font-semibold active:font-semibold transition-all duration-300">{{ $category->name }}</a>
                 </div>
                 <h1 class="font-extrabold text-[40px] leading-[45px] text-center sm:text-left">{{ $category->name }}</h1>
@@ -39,7 +39,7 @@
             <div class="flex flex-col gap-4 w-full">
                 <div class="grid sm:grid-cols-3 gap-5">
                     @forelse($category->projects as $project)
-                        <a href="details.html" class="card">
+                        <a href="{{ route('front.details', $project) }}" class="card">
                             <div
                                 class="p-5 rounded-[20px] bg-white flex flex-col gap-5 hover:ring-2 hover:ring-[#6635F1] transition-all duration-300">
                                 <div class="w-full h-[140px] rounded-[20px] overflow-hidden relative">
