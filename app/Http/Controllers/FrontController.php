@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreApplicantRequest;
+use App\Http\Requests\StoreJobReportRequest;
 use App\Models\Category;
+use App\Models\JobReport;
 use App\Models\Project;
 use App\Models\ProjectApplicant;
 use Illuminate\Http\Request;
@@ -75,5 +77,39 @@ class FrontController extends Controller
         });
 
         return redirect()->route('front.details', $project->slug);
+    }
+
+    public function report_job(Project $project)
+    {
+        return view('front.report_job', compact('project'));
+    }
+
+    public function report_job_store(StoreJobReportRequest $request, Project $project)
+    {
+        $user = Auth::user();
+
+        // Check if user already reported this job (optional)
+        if ($user->hasReportedProject($project->id)) {
+            return redirect()
+                ->route('front.details', $project->slug)
+                ->with('error', 'You have already reported this job.');
+        }
+
+        DB::transaction(function () use ($request, $user, $project) {
+            JobReport::create([
+                'user_id' => $user->id,
+                'project_id' => $project->id,
+                'reason' => $request->reason,
+                'description' => $request->description,
+                'status' => 'pending'
+            ]);
+
+            // Optional: Notify admin or project owner
+            // Notification::send($adminUsers, new JobReported($project, $user));
+        });
+
+        return redirect()
+            ->route('front.details', $project->slug)
+            ->with('success', 'Thank you for your report. We will review it shortly.');
     }
 }

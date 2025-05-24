@@ -44,4 +44,9 @@ class Project extends Model
     {
         return $this->hasMany(ProjectApplicant::class);
     }
+
+    public function reports()
+    {
+        return $this->hasMany(JobReport::class);
+    }
 }

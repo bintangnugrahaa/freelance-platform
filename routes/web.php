@@ -55,6 +55,14 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/dashboard/proposal_details/{project}/{projectApplicant}', [DashboardController::class, 'proposal_details'])
             ->name('dashboard.proposal_details');
+
+        Route::middleware(['auth', 'can:report job'])->group(function () {
+            Route::get('/report/{project:slug}', [FrontController::class, 'report_job'])
+                ->name('front.report_job');
+
+            Route::post('/report/{project:slug}/submit', [FrontController::class, 'report_job_store'])
+                ->name('front.report_job.store');
+        });
     });
 
     Route::prefix('admin')->name('admin.')->group(function () {

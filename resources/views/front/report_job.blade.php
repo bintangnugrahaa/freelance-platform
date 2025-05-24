@@ -22,13 +22,6 @@
             class="container max-w-[1130px] mx-auto flex flex-col sm:flex-row sm:flex-nowrap gap-5 mt-[30px]">
             <div class="flex flex-col gap-5">
                 <div class="bg-white flex flex-col gap-5 p-5 rounded-[20px] h-fit">
-                    <div class="w-full bg-[#0FB848] flex items-center gap-[10px] p-[10px_14px] rounded-xl">
-                        <div class="w-5 h-5 flex shrink-0">
-                            <img src="{{ asset('assets/icons/global.svg') }}" alt="icon">
-                        </div>
-                        <p class="text-white font-semibold text-sm">This project is worldwide means that you can apply and
-                            working from wherever you are.</p>
-                    </div>
                     <div class="flex flex-col sm:flex-row items-center gap-5">
                         <div class="flex shrink-0 w-[230px] h-[150px] rounded-[20px] overflow-hidden">
                             <img src="{{ Storage::url($project->thumbnail) }}" class="w-full h-full object-cover"
@@ -56,52 +49,10 @@
                             <h1 class="font-extrabold text-[30px] leading-[45px]">{{ $project->name }}</h1>
                         </div>
                     </div>
-                    <div class="flex flex-col gap-[6px] w-full">
-                        <h3 class="font-semibold">Details</h3>
-                        <div class="grid sm:grid-cols-3 gap-5">
-                            <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
-                                <div class="w-[38px] h-[38px] flex shrink-0">
-                                    <img src="{{ asset('assets/icons/dollar-circle.svg') }}"
-                                        class="w-full h-full object-contain" alt="icon">
-                                </div>
-                                <div class="flex flex-col justify-center gap-[2px]">
-                                    <p class="text-sm text-[#545768]">Budget</p>
-                                    <p class="font-bold">Rp {{ number_format($project->budget, 0, ',', '.') }}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
-                                <div class="w-[38px] h-[38px] flex shrink-0">
-                                    <img src="{{ asset('assets/icons/verify.svg') }}" class="w-full h-full object-contain"
-                                        alt="icon">
-                                </div>
-                                <div class="flex flex-col justify-center gap-[2px]">
-                                    <p class="text-sm text-[#545768]">Payment</p>
-                                    <p class="font-bold">Verified</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-[10px] p-5 border border-[#F1F1F1] rounded-[20px] bg-white">
-                                <div class="w-[38px] h-[38px] flex shrink-0">
-                                    <img src="{{ asset('assets/icons/crown.svg') }}" class="w-full h-full object-contain"
-                                        alt="icon">
-                                </div>
-                                <div class="flex flex-col justify-center gap-[2px]">
-                                    <p class="text-sm text-[#545768]">Level</p>
-                                    <p class="font-bold">{{ $project->skill_level }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="bg-white flex flex-col gap-5 p-5 rounded-[20px] h-fit">
-                    <h2 class="font-bold text-xl leading-[30px]">Ready to Work? Apply Now</h2>
-                    <p class="font-semibold">Cover Letter</p>
-                    <div class="w-full bg-[#030303] flex items-center gap-[10px] p-[10px_14px] rounded-xl">
-                        <div class="w-5 h-5 flex shrink-0">
-                            <img src="{{ asset('assets/icons/story.svg') }}" alt="icon">
-                        </div>
-                        <p class="text-white font-normal text-sm"><span class="font-bold">1 connect</span> will be deducted
-                            from your account to apply this job</p>
-                    </div>
+                    <h2 class="font-bold text-xl leading-[30px]">Report Details</h2>
+                    <p class="font-semibold">Detailed Explanation</p>
                     <form method="POST" action="{{ route('front.apply_job.store', $project) }}"
                         class="flex flex-col gap-5">
                         @csrf
@@ -109,16 +60,13 @@
                             <div class="w-6 h-6 flex shrink-0">
                                 <img src="{{ asset('assets/icons/sms-star.svg') }}" alt="icon">
                             </div>
-                            <textarea name="message" id="" rows="8"
+                            <textarea name="description" id="" rows="8"
                                 class="focus:outline-none appearance-none font-medium leading-[30px] placeholder:font-normal placeholder:text-[#545768] w-full resize-none"
-                                placeholder="Write your experience related to this project"></textarea>
+                                placeholder="Please provide detailed information about your report"></textarea>
                         </div>
                         <div class="flex flex-col sm:flex-row gap-3 items-center">
-                            <button
-                                class="font-semibold bg-[#030303] p-[14px_20px] rounded-full text-center w-full text-white">Save
-                                as a Draft</button>
                             <button type="submit"
-                                class="font-semibold bg-[#6635F1] p-[14px_20px] rounded-full text-center w-full text-white">Apply
+                                class="font-semibold bg-[#F3445C] p-[14px_20px] rounded-full text-center w-full text-white">Report
                                 Now</button>
                         </div>
                     </form>
@@ -159,10 +107,6 @@
                         </div>
                     </div>
                 </div>
-                <hr>
-                <a href="{{ route('front.report_job', $project) }}"
-                    class="font-semibold border border-[#030303] p-[14px_20px] rounded-full text-center">Report this
-                    Job</a>
             </div>
         </section>
     </body>

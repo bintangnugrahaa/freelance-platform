@@ -168,7 +168,7 @@
                     </div>
                 </div>
                 <hr>
-                <a href=""
+                <a href="{{ route('front.report_job', $project) }}"
                     class="font-semibold border border-[#030303] p-[14px_20px] rounded-full text-center">Report this
                     Job</a>
             </div>
