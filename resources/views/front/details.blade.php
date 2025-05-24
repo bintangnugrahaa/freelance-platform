@@ -114,7 +114,7 @@
                     <img src="{{ Storage::url($project->thumbnail) }}" class="w-full h-full object-cover" alt="thumbnail">
                 </div>
                 <div class="flex flex-col gap-3">
-                    <a href="apply.html"
+                    <a href="{{ route('front.apply_job', $project->slug) }}"
                         class="bg-[#6635F1] p-[14px_20px] rounded-full font-semibold text-white text-center">Apply Now</a>
                     <a href=""
                         class="bg-[#030303] p-[14px_20px] rounded-full font-semibold text-white text-center">Bookmark
