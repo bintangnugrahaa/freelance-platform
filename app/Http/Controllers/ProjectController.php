@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\StoreToolProjectRequest;
 use App\Models\Category;
 use App\Models\Project;
+use App\Models\ProjectApplicant;
 use App\Models\ProjectTool;
 use App\Models\Tool;
 use App\Models\WalletTransaction;
@@ -131,6 +132,28 @@ class ProjectController extends Controller
         });
 
         return redirect()->route('admin.projects.tools', $project->id);
+    }
+
+    public function complete_project_store(ProjectApplicant $projectApplicant)
+    {
+        DB::transaction(function () use ($projectApplicant) {
+            $validated = [
+                'type'    => 'Revenue',
+                'is_paid' => true,
+                'amount'  => $projectApplicant->project->budget,
+                'user_id' => $projectApplicant->freelancer_id,
+            ];
+
+            WalletTransaction::create($validated);
+
+            $projectApplicant->freelancer->wallet->increment('balance', $projectApplicant->project->budget);
+
+            $projectApplicant->project->update([
+                'has_finished' => true,
+            ]);
+        });
+
+        return redirect()->route('admin.projects.show', [$projectApplicant->project, $projectApplicant->id]);
     }
 
     /**

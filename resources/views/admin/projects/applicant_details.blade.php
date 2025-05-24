@@ -106,17 +106,8 @@
                         @csrf
                         @method('PUT')
                         <button type="submit"
-                            class="mt-4 w-full inline-flex items-center font-semibold py-2.5 px-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 text-sm">
+                            class="mt-4 w-full inline-flex items-center justify-center text-center font-semibold py-2.5 px-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 text-sm">
                             Approve & Hire
-                        </button>
-                    </form>
-                    <form method="POST" action="{{ route('admin.project_applicants.reject', $projectApplicant->id) }}"
-                        enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <button type="submit"
-                            class="mt-2 w-full inline-flex items-center font-semibold py-2.5 px-6 bg-red-600 text-white rounded-full hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200 text-sm">
-                            Reject
                         </button>
                     </form>
                 @endif
