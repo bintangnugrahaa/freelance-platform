@@ -31,7 +31,8 @@
               </li>
           @endcan
           <li>
-              <a href="" class="hover:font-semibold hover:text-[#6635F1] transition-all duration-300">Help</a>
+              <a href="{{ route('front.out_of_connect') }}"
+                  class="hover:font-semibold hover:text-[#6635F1] transition-all duration-300">Help</a>
           </li>
       </ul>
       @auth

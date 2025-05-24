@@ -108,4 +108,9 @@ class FrontController extends Controller
             ->route('front.details', $project->slug)
             ->with('success', 'Thank you for your report. We will review it shortly.');
     }
+
+    public function out_of_connect()
+    {
+        return view('front.out_of_connect');
+    }
 }
