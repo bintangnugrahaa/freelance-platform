@@ -8,13 +8,21 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10 flex flex-col gap-y-5">
 
-
-
-                <span class="text-white font-bold bg-green-500 rounded-2xl w-full p-5">
-                    Projek telah selesai dan revenue sudah ditambahkan kepada Wallet Anda
-                </span>
-
-
+                @if ($project->has_finished)
+                    @if ($projectApplicant->status == 'Hired')
+                        <span class="text-white font-bold bg-green-600 rounded-2xl w-full p-5">
+                            Projek telah selesai dan revenue sudah ditambahkan kepada Wallet Anda
+                        </span>
+                    @else
+                        <span class="text-white font-bold bg-yellow-500 rounded-2xl w-full p-5">
+                            Projek telah selesai, silahkan apply projek tersedia lainnya
+                        </span>
+                    @endif
+                @else
+                    <span class="text-white font-bold bg-blue-500 rounded-2xl w-full p-5">
+                        Projek masih dalam tahap pengembangan
+                    </span>
+                @endif
 
                 <h3 class="text-indigo-950 text-xl font-bold">You've applied to this job</h3>
 

@@ -45,7 +45,7 @@
                                 {{ $proposal->created_at->format('d M Y') }}</h3>
                         </div>
                         <div class="flex flex-row items-center gap-x-3 mt-4 md:mt-0">
-                            <a href="#"
+                            <a href="{{ route('dashboard.proposal_details', [$proposal->project, $proposal->id]) }}"
                                 class="inline-flex items-center font-semibold py-2 px-4 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 text-sm">
                                 Details
                             </a>
