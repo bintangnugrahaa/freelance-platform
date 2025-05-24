@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div class="flex flex-row items-center gap-x-3 mt-4 md:mt-0">
-                        <a href="#"
+                        <a href="{{ route('front.details', $project->slug) }}"
                             class="inline-flex items-center font-semibold py-2 px-4 bg-orange-600 text-white rounded-full hover:bg-orange-700 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all duration-200 text-sm">
                             Preview
                         </a>

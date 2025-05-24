@@ -14,8 +14,8 @@
                 <a href="{{ route('front.details', $project) }}"
                     class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Projects</a>
                 <span>/</span>
-                <a href=""
-                    class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Apply</a>
+                <a href="" class="last-of-type:font-semibold active:font-semibold transition-all duration-300">Report
+                    Job</a>
             </div>
         </section>
         <section id="details"

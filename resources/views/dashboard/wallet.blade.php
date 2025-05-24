@@ -41,10 +41,12 @@
                             class="inline-flex items-center font-semibold py-2.5 px-6 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors duration-200 text-sm">
                             Request Withdraw
                         </a>
-                        <a href="{{ route('dashboard.wallet.topup') }}"
-                            class="inline-flex items-center font-semibold py-2.5 px-6 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-200 text-sm">
-                            Topup Wallet
-                        </a>
+                        @can('topup wallet')
+                            <a href="{{ route('dashboard.wallet.topup') }}"
+                                class="inline-flex items-center font-semibold py-2.5 px-6 bg-green-600 text-white rounded-full hover:bg-green-700 transition-colors duration-200 text-sm">
+                                Topup Wallet
+                            </a>
+                        @endcan
                     </div>
                 </div>
                 <hr class="my-6 border-gray-200">
