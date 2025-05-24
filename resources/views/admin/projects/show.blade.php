@@ -19,7 +19,7 @@
                 @endif
 
                 <div
-                    class="item-card flex flex-col md:flex-row gap-y-6 justify-between items-start md:items-center p-6 bg-gray-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+                    class="item-card flex flex-col md:flex-row gap-y-6 justify-between items-start md:items-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-100">
                     <div class="flex flex-row items-center gap-x-4">
                         <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->name }}"
                             class="rounded-2xl object-cover w-24 h-16 shadow-sm">
@@ -46,9 +46,9 @@
 
                 @forelse($project->applicants as $applicant)
                     <div
-                        class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-50 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-100">
+                        class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-gray-50 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-100">
                         <div class="flex flex-row items-center gap-x-3">
-                            <img src="{{ Storage::url($applicant->freelancer->profile_image ?? 'default-profile.png') }}"
+                            <img src="{{ Storage::url($applicant->freelancer->avatar ?? 'default-profile.png') }}"
                                 alt="{{ $applicant->freelancer->name }}"
                                 class="rounded-full object-cover w-10 h-10 shadow-sm">
                             <div class="flex flex-col">
