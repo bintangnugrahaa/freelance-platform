@@ -114,11 +114,24 @@
                     <img src="{{ Storage::url($project->thumbnail) }}" class="w-full h-full object-cover" alt="thumbnail">
                 </div>
                 <div class="flex flex-col gap-3">
-                    <a href="{{ route('front.apply_job', $project->slug) }}"
-                        class="bg-[#6635F1] p-[14px_20px] rounded-full font-semibold text-white text-center">Apply Now</a>
-                    <a href=""
-                        class="bg-[#030303] p-[14px_20px] rounded-full font-semibold text-white text-center">Bookmark
-                        Job</a>
+                    @auth
+                        @if (Auth::user()->hasAppliedToProject($project->id))
+                            <a href="{{ route('dashboard.proposals') }}"
+                                class="bg-[#6635F1] p-[14px_20px] rounded-full font-semibold text-white text-center">View
+                                Proposal</a>
+                        @else
+                            <a href="{{ route('front.apply_job', $project->slug) }}"
+                                class="bg-[#6635F1] p-[14px_20px] rounded-full font-semibold text-white text-center">Apply
+                                Now</a>
+                        @endif
+                    @endauth
+                    @guest
+                        @if (!$project->has_started)
+                            <a href="{{ route('front.apply_job', $project->slug) }}"
+                                class="bg-[#6635F1] p-[14px_20px] rounded-full font-semibold text-white text-center">Apply
+                                Now</a>
+                        @endif
+                    @endguest
                 </div>
                 <div class="flex flex-col gap-3">
                     <h3 class="font-semibold">About Client</h3>
