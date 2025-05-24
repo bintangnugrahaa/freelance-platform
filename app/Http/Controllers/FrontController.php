@@ -88,7 +88,6 @@ class FrontController extends Controller
     {
         $user = Auth::user();
 
-        // Check if user already reported this job (optional)
         if ($user->hasReportedProject($project->id)) {
             return redirect()
                 ->route('front.details', $project->slug)
@@ -103,9 +102,6 @@ class FrontController extends Controller
                 'description' => $request->description,
                 'status' => 'pending'
             ]);
-
-            // Optional: Notify admin or project owner
-            // Notification::send($adminUsers, new JobReported($project, $user));
         });
 
         return redirect()

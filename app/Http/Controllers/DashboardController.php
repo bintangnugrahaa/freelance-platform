@@ -88,4 +88,9 @@ class DashboardController extends Controller
 
         return redirect()->route('dashboard.wallet');
     }
+
+    public function proposals()
+    {
+        return view('dashboard.proposals');
+    }
 }
